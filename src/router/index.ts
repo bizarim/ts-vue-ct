@@ -1,23 +1,29 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
+import AppLayout from '../components/app/AppLayout.vue';
 
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home,
+    path: '/hello',
+    name: 'hello',
+    component: ()=> import('@/views/HelloWorld.vue'),
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/',
+    name: 'Layout',
+    component: AppLayout,
+    children: [
+      {
+        path: '*',
+        component: () => import(/* webpackChunkName: "tinymce" */ '@/views/FormRequest.vue'),
+        name: 'RequestForm',
+        meta: { title: 'request' }
+      },
+    ]
   },
+
 ];
 
 const router = new VueRouter({
