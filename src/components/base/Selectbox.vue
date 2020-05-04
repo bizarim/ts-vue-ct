@@ -1,24 +1,32 @@
-<template></template>
+<template>
+  <div :class="[ this.value === '' ? 'base-selectbox no-value' : 'base-selectbox']">
+    <div class="select-wrapper">
+      <select class="form-control" value="{value}" onchange="{this.handleChange}">
+        <option disabled value="">{{disabledMsg}}</option>
+        <option v-for="(option, index) in option" v-bind:key="index">{{option.text}}</option>
+      </select>
+      <i class="fa arrow"></i>
+    </div>
+  </div>
+</template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 type onHandle = (id: number, checked: boolean, text: string) => void;
 
-@Component({})
+@Component({ data: {} })
 export default class Selectbox extends Vue {
-  @Prop({ default: "" }) private text!: string;
+  @Prop({ default: "Please select one!" }) private disabledMsg!: string;
   @Prop({ default: 0 }) private id!: number;
-  @Prop({ default: false }) private init!: boolean;
+  @Prop({ default: false }) private value!: boolean;
   @Prop({
     default: (id: number, checked: boolean, text: string): void => undefined,
   })
   private onHandle?: onHandle;
 
   private onChange(): void {
-    if (this.onHandle) {
-      this.onHandle(this.id, false, this.text);
-    }
+
   }
 }
 </script>

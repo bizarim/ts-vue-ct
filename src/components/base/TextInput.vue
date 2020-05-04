@@ -8,22 +8,29 @@
       :placeholder="placeHolder"
       autocomplete="new-password"
       autocorrect="off"
-      autocapitalize="off"
+      autoapitalize="off"
       spellcheck="true"
       :minlength="0"
       :maxlength="255"
       :value="value"
+      @input="$emit('input', $event.target.value)"
     />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-
+// 왜냐하면 v-model은 input이라는 이벤트로 받기 때문이다.
 @Component({})
 export default class TextInput extends Vue {
+  @Prop({ default: "" }) private value!: string;
   private placeHolder: string = "here";
-  private value: string = '';
+
+  data() {
+    return {
+      dValue: this.value,
+    };
+  }
 }
 </script>
 <style scoped lang="scss">
