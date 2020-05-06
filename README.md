@@ -1,5 +1,5 @@
-# ts-vue-study
-vue study
+# ts-vue-ct
+vue ct
 
 ## Project setup
 ```
